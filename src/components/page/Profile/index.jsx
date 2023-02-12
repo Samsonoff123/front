@@ -54,7 +54,7 @@ export default function Profile() {
     <div>
         <Header />
         <div className="profile">
-            <h3>Создание поста</h3>
+            <h3>Пост құру</h3>
             <div className='profile__creating'>
               <TextField error={isError} value={name} onChange={(e)=>{setName(e.target.value); setIsError(false)}} label="Name" variant="standard" />
               <TextField error={isError} value={price} onChange={(e)=>{setPrice(e.target.value); setIsError(false)}} type="number" label="Price" variant="standard" />
