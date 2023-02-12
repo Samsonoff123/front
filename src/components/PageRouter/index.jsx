@@ -13,6 +13,7 @@ export default function PageRouter() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/like" element={<Like />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<Main />} />
     </Routes>
   )
 }

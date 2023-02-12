@@ -12,7 +12,7 @@ export default function Login({setIsAuth}) {
         if (login === '' || password === '' || !login.includes('@') || password.length < 4) {
             setIsError(true)
         } else {
-            axios.post('http://localhost:5000/api/user/login', {
+            axios.post('https://asem-backend.vercel.app/api/user/login', {
                 email: login,
                 password
             }).then((res) => {
@@ -29,7 +29,7 @@ export default function Login({setIsAuth}) {
         if (login === '' || password === '' || !login.includes('@') || password.length < 4) {
             setIsError(true)
         } else {
-            axios.post('http://localhost:5000/api/user/reg', {
+            axios.post('https://asem-backend.vercel.app/api/user/reg', {
                 email: login,
                 password
             }).then((res) => {

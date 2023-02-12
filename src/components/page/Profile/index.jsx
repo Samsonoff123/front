@@ -23,7 +23,7 @@ export default function Profile() {
     if (name === '' || price === 0 || tag === '' || img === '' || shortDescription === '' || description === '') {
       setIsError(true)
     } else {
-      axios.post('http://localhost:5000/api/product/', {
+      axios.post('https://asem-backend.vercel.app/api/product/', {
         name,
         price, 
         tag,
