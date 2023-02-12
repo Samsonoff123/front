@@ -7,6 +7,9 @@ body {
     margin: 0;
     padding: 0;
     background-color: #FFFBEB;
+    background-image: url('./assets/background.jpg');
+    backdrop-filter: blur(3px);
+    min-height: 100vh;
 }
 
 .header {
@@ -19,6 +22,7 @@ body {
     display: flex;
     justify-content: space-between;
     border-radius: 15px 15px 0 0;
+    box-shadow: 0px -8px 8px 0px rgba(34, 60, 80, 0.2);
 
     .header__element {
         cursor: pointer;
@@ -36,6 +40,7 @@ body {
     left: 0;
     padding: 10px;
     width: 100%;
+    height: 60px;
     background-color: #495579;
     display: flex;
     justify-content: space-between;
@@ -46,6 +51,7 @@ body {
         font-size: 18px;
         text-transform: uppercase;
         color: #FFFBEB;
+        margin: 0 auto;
     }
 
     svg {
@@ -55,6 +61,27 @@ body {
 
 .main, .profile {
     padding: 10px;
+}
+
+.main {
+    padding-top: 80px;
+    height: calc(100vh - 94px);
+    overflow-y: scroll;
+}
+
+.products__main {
+    background-color: #fffbeb70;
+    min-height: 100vh;
+}
+
+.cart__page {
+    background-color: #85586f2f;
+    min-height: 100vh;
+}
+
+.like__page {
+    background-color: #d0b8a846;
+    min-height: 100vh;
 }
 
 .like, .cart {
@@ -74,7 +101,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    background-color: #D0B8A8;
+    background-color: #d0b8a8d1;
     border-radius: 15px;
     gap: 5px;
 
@@ -109,7 +136,7 @@ body {
     box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 
     img {
-        height: 170px;
+        min-height: 170px;
         object-fit: cover;
     }
 
@@ -141,6 +168,7 @@ body {
         padding: 10px;
         background-color: #d0b8a88c;
         color: white;
+        box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
     }
 
     .icons {
@@ -163,6 +191,35 @@ body {
     }
 }
 
-.cart__page {
-    padding-top: 80px;
+.profile {
+    min-height: 100vh;
+
+    h3 {
+        text-align: center;
+    }
+    
+    .profile__creating {
+        background-color: #f8ede3c2;
+        padding: 25px;
+        border-radius: 25px;
+        max-width: 400px;
+        margin: 0 auto;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        box-shadow: 4px 4px 8px 0px rgb(34 60 80 / 20%);
+    }
+}
+
+.exit {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    span {
+        font-size: 24px;
+        font-weight: bold;
+    }
 }

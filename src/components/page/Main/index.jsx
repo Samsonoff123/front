@@ -1,42 +1,35 @@
-import { Rating } from '@mui/material';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useGetProductsQuery } from '../../../redux/slice/productService';
 import Header from '../../Header'
 import Product from '../../Product';
 
 export default function Main() {
-  const [products, setProducts] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const { data, isFetching } = useGetProductsQuery()
 
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/product/')
-      .then((res) => {
-        setProducts(res.data.rows)
-        setIsLoading(false)
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-  }, [])
+  if (isFetching) {
+    return (
+    <div className="products__main">
+      <Header />
+      <>loading</>
+    </div>)
+  }
 
   return (
-    <div>
-        <Header />
+    <div className="products__main">
+        <Header pageName="Main page" back={false} />
         <div className="main">
             <div className="products">
               {
-                !isLoading
-                ? <div className='product__main'>
+                <div className='product__main'>
                     {
-                      products.length === 0 ? 
+                      !data.rows.length ? 
                         <>no data</>
                       :
-                      products.map((product, index) => 
-                        <Product product={product} index={index} />
+                      data.rows.map((product) => 
+                        <Product product={product} />
                       )
                     }
                 </div>
-                : "loading"
               }
             </div>
         </div>

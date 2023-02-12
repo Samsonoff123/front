@@ -44,9 +44,9 @@ export default function Login({setIsAuth}) {
   return (
     <div className='login__main'>
         <form className='login__form'>
-            <img src={loginimg} />
-            <TextField error={isError} onChange={(e)=>{setLogin(e.target.value); setIsError(false)}} label="Login" variant="standard" />
-            <TextField error={isError} onChange={(e)=>{setPassword(e.target.value); setIsError(false)}} label="Password" variant="standard" />
+            <img src={loginimg} alt="loginImg" />
+            <TextField type="email" error={isError} onChange={(e)=>{setLogin(e.target.value); setIsError(false)}} label="Login" variant="standard" />
+            <TextField type="password" error={isError} onChange={(e)=>{setPassword(e.target.value); setIsError(false)}} label="Password" variant="standard" />
             <div className="buttons">
                 <Button onClick={handleLog} variant="contained">Кіру</Button>
                 <Button onClick={handleReg} variant="contained">Аккаунт ашу</Button>

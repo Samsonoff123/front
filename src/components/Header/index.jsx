@@ -7,7 +7,7 @@ import { ReactComponent as Back } from '../../assets/back.svg'
 import { ReactComponent as Logout } from '../../assets/logout.svg'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function Header({pageName}) {
+export default function Header({pageName, back = true}) {
     const navigate = useNavigate()
     const [isAdmin, setIsAdmin] = useState()
 
@@ -38,7 +38,7 @@ export default function Header({pageName}) {
         pageName &&
 
         <div className="header_top" >
-            <Back onClick={()=>navigate(-1)} />
+            { back && <Back onClick={()=>navigate(-1)} /> }
             <span>
                 {pageName}
             </span>

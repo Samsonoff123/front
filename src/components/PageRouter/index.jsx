@@ -6,6 +6,7 @@ import Main from '../page/Main'
 import Profile from '../page/Profile'
 
 export default function PageRouter() {
+
   return (
     <Routes>
         <Route path="/" element={<Main />} />

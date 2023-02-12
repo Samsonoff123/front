@@ -17,8 +17,8 @@ export default function Cart() {
                     {
                       cart.length !== 0 
                       ?
-                        cart.map((product, index) =>
-                          <Product product={product} index={index} />
+                        cart.map((product) =>
+                          <Product product={product} />
                         )
                       : <>no data</>
                     }
