@@ -46,7 +46,7 @@ body {
     justify-content: space-between;
     align-items: center;
     border-radius: 0 0 15px 15px;
-    padding-top: 80px;
+    padding-top: 50px;
     padding-bottom: 30px;
 
     span {
@@ -66,7 +66,7 @@ body {
 }
 
 .main {
-    padding-top: 120px;
+    padding-top: 95px;
     height: calc(100vh - 94px);
     overflow-y: scroll;
 }
@@ -139,6 +139,8 @@ body {
 
     img {
         min-height: 170px;
+        height: 170px;
+        max-height: 170px;
         object-fit: cover;
     }
 
@@ -148,6 +150,7 @@ body {
         flex-direction: column;
         gap: 10px;
         height: 100%;
+        max-height: 180px;
     }
 
     .product__title {
