@@ -62,7 +62,7 @@ export default function Profile() {
               <TextField error={isError} value={img} onChange={(e)=>{setImg(e.target.value); setIsError(false)}} label="Image" variant="standard" />
               <TextField error={isError} value={shortDescription} onChange={(e)=>{setShortDescription(e.target.value); setIsError(false)}} multiline rows={3} label="Short Description" variant="standard" />
               <TextField error={isError} value={description} onChange={(e)=>{setDescription(e.target.value); setIsError(false)}} multiline rows={5} label="Description" variant="standard" />
-              <Button onClick={handleSubmit} variant="contained">Создать</Button>
+              <Button onClick={handleSubmit} variant="contained">Құру</Button>
             </div>
             <div className='exit'>
               <span>Exit</span>
