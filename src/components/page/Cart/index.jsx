@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux'
 import Header from '../../Header'
 import Product from '../../Product'
 
-export default function Cart() {
+export default function Cart({isAdmin}) {
   const { cart } = useSelector(state => state)
   return (
     <div className='cart__page'>
-        <Header pageName="Cart page" />
+        <Header isAdmin={isAdmin} pageName="Cart page" />
         <div className="main">
             <div className="products">
               {

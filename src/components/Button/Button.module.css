@@ -1,0 +1,25 @@
+.button {
+    background: #349E5B;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FFFFFF;
+    outline: none;
+    border: none;
+    padding: 10px;
+    min-width: 180px;
+}
+
+.button__white {
+    background: #FFFFFF;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #349E5B;
+    outline: none;
+    border: none;
+    padding: 10px;
+    min-width: 180px;
+}

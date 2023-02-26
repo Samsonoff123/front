@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux'
 import Header from '../../Header'
 import Product from '../../Product'
 
-export default function Like() {
+export default function Like({isAdmin}) {
   const { like } = useSelector(state => state)
   return (
     <div className='like__page'>
-        <Header pageName="Like page" />
+        <Header isAdmin={isAdmin} pageName="Like page" />
         <div className="main">
             <div className="products">
               {

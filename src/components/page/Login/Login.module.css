@@ -1,0 +1,110 @@
+.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    gap: 20px;
+}
+
+.main {
+    padding: 0 10px;
+    margin: auto 0;
+}
+
+img {
+    height: 100px;
+    width: 100%;
+    object-fit: cover;
+}
+
+h3 {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 35px;
+    color: #272727;
+    text-align: center;
+}
+
+.or {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 35px;
+    color: #BDBDBD;
+}
+
+.active {
+    font-weight: 500;
+    color: #349E5B;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+form {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.input__group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input__group label {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    color: #349E5B;
+}
+
+.input__group input {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #C0C0C0;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.fogot {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 18px;
+    text-decoration: underline;
+    color: #349E5B;
+}
+
+.button__group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+    background: #349E5B;
+    margin-top: auto;
+    margin-bottom: 0;
+    padding: 20px 0;
+}
+
+.bottom .icons {
+    display: flex;
+    gap: 10px;
+}
+
+.bottom span {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 18px;
+    color: #FFFFFF;
+}

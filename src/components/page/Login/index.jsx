@@ -1,57 +1,130 @@
-import { Button, TextField } from '@mui/material'
-import axios from 'axios'
 import React, { useState } from 'react'
-import loginimg from '../../../assets/login.png'
+import styles from './Login.module.css'
+import loginImage from '../../../assets/images/loginBack.png'
+import Button from '../../Button';
+import { ReactComponent as Facebook } from '../../../assets/icons/facebook.svg'
+import { ReactComponent as Twitter } from '../../../assets/icons/twitter.svg'
+import { ReactComponent as Google } from '../../../assets/icons/Google.svg'
+import { ReactComponent as In } from '../../../assets/icons/in.svg'
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify'
+ 
+export default function Login() {
+  const [login, setLogin] = useState(true);
 
-export default function Login({setIsAuth}) {
-    const [login, setLogin] = useState('')
-    const [password, setPassword] = useState('')
-    const [isError, setIsError] = useState(false)
+  const handleSubmitLogin = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const email = formData.get('email')
+    const password = formData.get('password')
 
-    const handleLog = () => {
-        if (login === '' || password === '' || !login.includes('@') || password.length < 4) {
-            setIsError(true)
-        } else {
-            axios.post('https://asem-backend.vercel.app/api/user/login', {
-                email: login,
-                password
-            }).then((res) => {
-                localStorage.setItem('token', res.data.token)
-                setIsAuth(true)
-            }).catch((e)=> {
-                setIsError(true)
-            })
-
-        }
+    if (email !== '' && password !== '') {
+      axios.post('https://asem-backend.vercel.app/api/user/login', {
+        email, password
+      }).then((res) => {
+        localStorage.setItem('token', res.data.token)
+        document.location.reload()
+      }).catch((e)=>{
+        toast.error(e.response.data.message, {
+          position: "top-center",
+          autoClose: 1000,
+        });
+      })
+    } else {
+      toast.error('Ошибка!', {
+        position: "top-center",
+        autoClose: 1000,
+      });
     }
+  }
 
-    const handleReg =() => {
-        if (login === '' || password === '' || !login.includes('@') || password.length < 4) {
-            setIsError(true)
-        } else {
-            axios.post('https://asem-backend.vercel.app/api/user/reg', {
-                email: login,
-                password
-            }).then((res) => {
-                localStorage.setItem('token', res.data.token)
-                setIsAuth(true)
-            }).catch((e)=> {
-                setIsError(true)
-            })
-        }
+  const handleSubmitReg = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    const full_name = formData.get('full_name')
+    const email = formData.get('email')
+    const password = formData.get('password')
+
+    if (full_name !== '' && email !== '' && password !== '') {
+      axios.post('https://asem-backend.vercel.app/api/user/reg', {
+        email, password, full_name
+      }).then((res) => {
+        localStorage.setItem('token', res.data.token)
+        document.location.reload()
+      }).catch((e)=>{
+        toast.error(e.response.data.message, {
+          position: "top-center",
+          autoClose: 1000,
+        });
+      })
+    } else {
+      toast.error('Ошибка!', {
+        position: "top-center",
+        autoClose: 1000,
+      });
     }
+  }
 
   return (
-    <div className='login__main'>
-        <form className='login__form'>
-            <img src={loginimg} alt="loginImg" />
-            <TextField type="email" error={isError} onChange={(e)=>{setLogin(e.target.value); setIsError(false)}} label="Login" variant="standard" />
-            <TextField type="password" error={isError} onChange={(e)=>{setPassword(e.target.value); setIsError(false)}} label="Password" variant="standard" />
-            <div className="buttons">
-                <Button onClick={handleLog} variant="contained">Кіру</Button>
-                <Button onClick={handleReg} variant="contained">Аккаунт ашу</Button>
+    <>
+      <ToastContainer />
+
+    <div className={styles.flex}>
+    <img src={loginImage} alt="loginImage" />
+      <div className={styles.main}>
+          <h3>
+            <span onClick={()=>!login && setLogin(true)} className={!login && styles.active}>Log In</span> 
+            <span className={styles.or}> or </span> 
+            <span onClick={()=>login && setLogin(false)} className={login && styles.active}>Sign In</span>
+          </h3>
+
+          {
+            login ? 
+            <form id="testid" onSubmit={(e)=>handleSubmitLogin(e)}>
+              <div className={styles.input__group}>
+                <label>E-MAIL</label>
+                <input name='email' type="email" placeholder='Enter your email addres' />
+              </div>
+              <div className={styles.input__group}>
+                <label>PASSWORD</label>
+                <input name='password' type="password" placeholder='**********' />
+              </div>
+              <div className={styles.button__group}>
+                <Button style={{minWidth: '50%'}}>Log In</Button>
+                <span className={styles.fogot}>Forgot your password?</span>
+              </div>
+            </form>
+            : 
+            <form onSubmit={(e)=>handleSubmitReg(e)}>
+            <div className={styles.input__group}>
+              <label>E-MAIL</label>
+              <input name='email' type="email" placeholder='Enter your email addres' />
             </div>
-        </form>
+            <div className={styles.input__group}>
+              <label>PASSWORD</label>
+              <input name='password' type="password" placeholder='**********' />
+            </div>
+            <div className={styles.input__group}>
+              <label>FULL NAME</label>
+              <input name='full_name' type="text" placeholder='Enter your full name' />
+            </div>
+            <div className={styles.button__group}>
+              <Button style={{minWidth: '50%'}}>Sign In</Button>
+              <span className={styles.fogot}>Forgot your password?</span>
+            </div>
+          </form>
+          }
+          </div>
+          <div className={styles.bottom}>
+            <span>{!login ? "Sign up" : "Log In"} with social platforms</span>
+            <div className={styles.icons}>
+              <Facebook />
+              <Twitter />
+              <Google />
+              <In />
+            </div>
+          </div>
     </div>
+    </>
   )
 }

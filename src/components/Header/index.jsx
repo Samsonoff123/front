@@ -7,25 +7,8 @@ import { ReactComponent as Back } from '../../assets/back.svg'
 import { ReactComponent as Logout } from '../../assets/logout.svg'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function Header({pageName, back = true}) {
+export default function Header({pageName, back = true, isAdmin}) {
     const navigate = useNavigate()
-    const [isAdmin, setIsAdmin] = useState()
-
-    function parseJwt (token) {
-        var base64Url = token.split('.')[1];
-        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
-    
-        return JSON.parse(jsonPayload);
-    }
-
-    useEffect(() => {
-        if (parseJwt(localStorage.getItem('token')).role === 'ADMIN') {
-            setIsAdmin(true)
-        }
-    }, [])
 
     const handleLogout = () => {
         localStorage.removeItem('token')
@@ -57,7 +40,7 @@ export default function Header({pageName, back = true}) {
             <Like />
         </Link>
         {
-            isAdmin ?
+            !!isAdmin ?
             <Link to="/profile" className="header__element">
                 <Profile />
             </Link>

@@ -6,9 +6,6 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #FFFBEB;
-    background-image: url('./assets/background.jpg');
-    backdrop-filter: blur(3px);
     min-height: 100vh;
 }
 
@@ -18,7 +15,7 @@ body {
     left: 0;
     padding: 20px;
     width: 100%;
-    background-color: #495579;
+    background-color: #349E5B;
     display: flex;
     justify-content: space-between;
     border-radius: 15px 15px 0 0;
@@ -28,8 +25,8 @@ body {
         cursor: pointer;
 
         svg {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
         }
     }
 }
@@ -41,7 +38,7 @@ body {
     padding: 10px;
     width: 100%;
     height: 60px;
-    background-color: #495579;
+    background-color: #349E5B;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -66,8 +63,7 @@ body {
 }
 
 .main {
-    padding-top: 95px;
-    height: calc(100vh - 94px);
+    height: calc(100vh - 84px);
     overflow-y: scroll;
 }
 
@@ -77,12 +73,12 @@ body {
 }
 
 .cart__page {
-    background-color: #85586f2f;
+    background-color: #fffbeb70;
     min-height: 100vh;
 }
 
 .like__page {
-    background-color: #d0b8a846;
+    background-color: #fffbeb70;
     min-height: 100vh;
 }
 
@@ -128,6 +124,7 @@ body {
 }
 
 .product__element {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -137,11 +134,20 @@ body {
     overflow: hidden;
     box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 
+    .removeButton {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        z-index: 9;
+        background-color: #ffffffaf;
+        border-radius: 15px;
+    }
+
     img {
         min-height: 170px;
         height: 170px;
         max-height: 170px;
-        object-fit: cover;
+        object-fit: contain;
     }
 
     .product__info {
@@ -171,7 +177,7 @@ body {
     .price {
         margin-top: -48px;
         padding: 10px;
-        background-color: #d0b8a88c;
+        background-color: #349e5b62;
         color: white;
         box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
     }
@@ -197,10 +203,11 @@ body {
 }
 
 .profile {
-    min-height: 100vh;
+    height: calc(100vh - 84px);
+    overflow-y: scroll;
 
     h3 {
-        margin-top: 30px;
+        margin-top: 0;
         text-align: center;
     }
     
