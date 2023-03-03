@@ -45,6 +45,7 @@ body {
     border-radius: 0 0 15px 15px;
     padding-top: 50px;
     padding-bottom: 30px;
+    z-index: 99;
 
     span {
         font-size: 18px;
@@ -75,11 +76,13 @@ body {
 .cart__page {
     background-color: #fffbeb70;
     min-height: 100vh;
+    padding-top: 90px;
 }
 
 .like__page {
     background-color: #fffbeb70;
     min-height: 100vh;
+    padding-top: 90px;
 }
 
 .like, .cart {
