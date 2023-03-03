@@ -12,7 +12,7 @@ export default function PageRouter({isAdmin}) {
         <Route path="/" element={<Main isAdmin={isAdmin} />} />
         <Route path="/cart" element={<Cart isAdmin={isAdmin} />} />
         <Route path="/like" element={<Like isAdmin={isAdmin} />} />
-        <Route path="/profile" element={<Profile isAdmin={isAdmin} />} />
+         { isAdmin && <Route path="/profile" element={<Profile isAdmin={isAdmin} />} />  }
         <Route path="*" element={<Main isAdmin={isAdmin} />} />
     </Routes>
   )

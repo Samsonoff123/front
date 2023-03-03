@@ -1,5 +1,5 @@
 import { Rating } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import { ReactComponent as Cart } from '../../assets/cart.svg'
 import { ReactComponent as Like } from '../../assets/like.svg'
@@ -17,6 +17,7 @@ import { toast, ToastContainer } from "react-toastify";
 export default function Product({product}) {
     const { addToCart, removeCart, addToLike, removeLike } = useActions()
     const [open, setOpen] = useState();
+    const [isAdmin, setIsAdmin] = useState(false);
 
     const { cart, like } = useSelector(state => state)
 
@@ -55,9 +56,22 @@ export default function Product({product}) {
       setOpen(false)
     }
 
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    
+       if (JSON.parse(jsonPayload).role === 'ADMIN') {
+        setIsAdmin(true)
+       }
+    }, [])
+
   return (
     <div className='product__element' key={product.id}>
-        <DeleteOutlineIcon className='removeButton' onClick={()=>setOpen(true)} />
+        { isAdmin && <DeleteOutlineIcon className='removeButton' onClick={()=>setOpen(true)} /> }
         <img src={product.img} alt="productImg" />
         <span className='price'>{product.price} KZT</span>
         <div className='product__info'>
