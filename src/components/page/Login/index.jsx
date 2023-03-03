@@ -9,7 +9,7 @@ import { ReactComponent as In } from '../../../assets/icons/in.svg'
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify'
  
-export default function Login() {
+export default function Login({setIsAuth}) {
   const [login, setLogin] = useState(true);
 
   const handleSubmitLogin = (e) => {
@@ -23,7 +23,7 @@ export default function Login() {
         email, password
       }).then((res) => {
         localStorage.setItem('token', res.data.token)
-        document.location.reload()
+        setIsAuth(true);
       }).catch((e)=>{
         toast.error(e.response.data.message, {
           position: "top-center",
@@ -50,7 +50,7 @@ export default function Login() {
         email, password, full_name
       }).then((res) => {
         localStorage.setItem('token', res.data.token)
-        document.location.reload()
+        setIsAuth(true);
       }).catch((e)=>{
         toast.error(e.response.data.message, {
           position: "top-center",

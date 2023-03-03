@@ -22,9 +22,9 @@ function App() {
   useEffect(() => {
     if (localStorage.getItem('token')) {
       setIsAuth(true)
-    }
-    if (parseJwt(localStorage.getItem('token')).role === 'ADMIN') {
-      setIsAdmin(true)
+      if (parseJwt(localStorage.getItem('token')).role === 'ADMIN') {
+        setIsAdmin(true)
+      }
     }
   }, [])
   
@@ -34,6 +34,8 @@ function App() {
       <Login setIsAuth={setIsAuth} />
     )
   }
+
+  console.log(isAdmin);
 
   return (
     <div>
