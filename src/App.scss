@@ -9,6 +9,15 @@ body {
     min-height: 100vh;
 }
 
+a {
+    color:#000;
+    text-decoration: none;
+}
+
+h4 {
+    text-align: center;
+}
+
 .header {
     position: fixed;
     bottom: 0;
@@ -20,6 +29,7 @@ body {
     justify-content: space-between;
     border-radius: 15px 15px 0 0;
     box-shadow: 0px -8px 8px 0px rgba(34, 60, 80, 0.2);
+    z-index: 9;
 
     .header__element {
         cursor: pointer;
@@ -77,6 +87,7 @@ body {
     background-color: #fffbeb70;
     min-height: 100vh;
     padding-top: 90px;
+    padding-bottom: 80px;
 }
 
 .like__page {
@@ -239,3 +250,91 @@ body {
         font-weight: bold;
     }
 }
+
+.course-card {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .course-image {
+    width: 100%;
+    height: 250px;
+  }
+  
+  .course-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .course-details {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .course-name {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 20px;
+    text-align: left;
+    font-weight: bold;
+    color: #349e5b;
+  }
+  
+  .course-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #349e5b;
+    margin-bottom: 10px;
+  }
+  
+  .course-tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  
+  .tag {
+    background-color: #349e5b;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .course-description {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .course-stats {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #555;
+  }
+
+  .course-views {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .course-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 3;
+  }

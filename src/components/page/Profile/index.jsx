@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../../Header";
 import { ReactComponent as Logout } from "../../../assets/logout.svg";
 import { ToastContainer } from 'react-toastify';
 import {
+  Grid,
   TextField,
 } from "@mui/material";
 import Button from '../../Button'
@@ -22,7 +23,8 @@ export default function Profile({isAdmin}) {
   const [shortDescription, setShortDescription] = useState("");
   const [description, setDescription] = useState("");
   const [isError, setIsError] = useState(false);
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
+  const [users, setUsers] = useState([]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -79,6 +81,20 @@ export default function Profile({isAdmin}) {
         });
     }
   };
+
+  useEffect(() => {
+    axios.get('https://asem-backend.vercel.app/api/user', {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      setUsers(res.data)
+    })
+    .catch((e) => {
+      console.log(e);
+    })
+  }, [])
 
   return (
     <div>
@@ -164,7 +180,73 @@ export default function Profile({isAdmin}) {
               </Button>
             </div>
           </TabPanel>
-          <TabPanel value={1}>TabPanel2</TabPanel>
+          <TabPanel style={{padding: "24px 0"}} value={1}>
+            <Box borderBottom={1} paddingBottom={1}>
+              <h4>Users</h4>
+              {
+                users?.map(user =>
+                  <Grid marginBottom={4} justifyContent="space-between" rowGap={1} container>
+                  <Grid item xs={2}>
+                    <TextField 
+                      type='text' 
+                      label="id"
+                      defaultValue={user.id}
+                      variant='outlined'
+                      color="success"
+                      focused
+                      inputProps={
+                        { readOnly: true }
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={9.9}>
+                    <TextField 
+                      type='text' 
+                      label="email"
+                      defaultValue={user.email}
+                      variant='outlined'
+                      color="success"
+                      focused
+                      inputProps={
+                        { readOnly: true }
+                      }
+                      sx={{width: "100%"}}
+                    />
+                  </Grid>   
+                  <Grid item xs={5.9}>
+                    <TextField 
+                      type='text' 
+                      label="fullname"
+                      defaultValue={user.full_name}
+                      variant='outlined'
+                      color="success"
+                      focused
+                      inputProps={
+                        { readOnly: true }
+                      }
+                      sx={{width: "100%"}}
+                    />
+                  </Grid>  
+                  <Grid item xs={5.9}>
+                    <TextField 
+                      type='text' 
+                      label="role"
+                      defaultValue={user.role}
+                      variant='outlined'
+                      color="success"
+                      focused
+                      inputProps={
+                        { readOnly: true }
+                      }
+                      sx={{width: "100%"}}
+                    />
+                  </Grid>   
+                </Grid>
+                )
+              }               
+            </Box>
+
+          </TabPanel>
           <TabPanel value={2}>TabPanel3</TabPanel>
         </TabContext>
         <div className="exit">

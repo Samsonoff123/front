@@ -22,10 +22,10 @@ export default function Main({isAdmin}) {
               {
                 <div className='product__main'>
                     {
-                      !data.rows.length ? 
+                      !data?.rows.length ? 
                         <>no data</>
                       :
-                      data.rows.map((product) => 
+                      data?.rows.map((product) => 
                         <Product product={product} />
                       )
                     }

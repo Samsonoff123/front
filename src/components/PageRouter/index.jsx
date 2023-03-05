@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 import Cart from '../page/Cart'
 import Like from '../page/Like'
 import Main from '../page/Main'
+import ProductDetail from '../page/ProductDetail'
 import Profile from '../page/Profile'
 
 export default function PageRouter({isAdmin}) {
@@ -14,6 +15,7 @@ export default function PageRouter({isAdmin}) {
         <Route path="/like" element={<Like isAdmin={isAdmin} />} />
          { isAdmin && <Route path="/profile" element={<Profile isAdmin={isAdmin} />} />  }
         <Route path="*" element={<Main isAdmin={isAdmin} />} />
+        <Route path='/product/:id' element={<ProductDetail isAdmin={isAdmin} />} />
     </Routes>
   )
 }

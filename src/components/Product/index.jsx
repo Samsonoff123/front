@@ -13,6 +13,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '../../components/Button'
 import axios from 'axios';
 import { toast, ToastContainer } from "react-toastify";
+import { Link } from 'react-router-dom';
 
 export default function Product({product}) {
     const { addToCart, removeCart, addToLike, removeLike } = useActions()
@@ -24,7 +25,8 @@ export default function Product({product}) {
     const isExistInCart = cart.some(p => p.id === product.id)
     const isExistInLike = like.some(p => p.id === product.id)
 
-    const handleCart = () => {
+    const handleCart = (e) => {
+      e.preventDefault();
       if (!isExistInCart) {
         addToCart(product)
       } else {
@@ -32,7 +34,8 @@ export default function Product({product}) {
       }
     }
 
-    const handleLike = () => {
+    const handleLike = (e) => {
+      e.preventDefault();
       if (!isExistInLike) {
         addToLike(product)
       } else {
@@ -68,8 +71,10 @@ export default function Product({product}) {
         setIsAdmin(true)
        }
     }, [])
+    
 
   return (
+    <Link to={`/product/${product.id}`}>
     <div className='product__element' key={product.id}>
         { isAdmin && <DeleteOutlineIcon className='removeButton' onClick={()=>setOpen(true)} /> }
         <img src={product.img} alt="productImg" />
@@ -77,10 +82,10 @@ export default function Product({product}) {
         <div className='product__info'>
             <div className="product__title">{product.name}</div>
             <div className="product__description">{product.shortDescription.text}</div>
-            <Rating style={{marginTop: 'auto'}} name="read-only" value={product.raiting} readOnly />
+            <Rating style={{marginTop: 'auto'}} name="half-rating" precision={0.5} defaultValue={product.rating} readOnly />
             <div className='icons'>
-                <Cart className={isExistInCart && 'cart__active'} onClick={handleCart} />
-                <Like className={isExistInLike && 'cart__active'} onClick={handleLike} />
+                <Cart className={isExistInCart && 'cart__active'} onClick={(e)=>handleCart(e)} />
+                <Like className={isExistInLike && 'cart__active'} onClick={(e)=>handleLike(e)} />
             </div>
         </div>
         <Dialog
@@ -106,5 +111,6 @@ export default function Product({product}) {
         </Dialog>
         <ToastContainer />
     </div>
+    </Link>
   )
 }
