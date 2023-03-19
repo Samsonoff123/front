@@ -124,7 +124,7 @@ function ProductDetail({isAdmin}) {
   );
 }
 
-function ProductCart(props) {
+export function ProductCart(props) {
   const { id, name, price, tag, img, description, views, rating } = props;
 
   const handleSetRating = (event, value) => {
@@ -168,10 +168,10 @@ function ProductCart(props) {
           <div className="course-stats">
             <div className="course-views">
               <RemoveRedEyeOutlinedIcon />
-              {views} просмотров
+              {views} views
             </div>
             <div className="course-rating">
-              Рейтинг:
+              Rating:
               <Rating
                 style={{ marginTop: "auto" }}
                 name="half-rating"

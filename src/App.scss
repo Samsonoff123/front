@@ -88,6 +88,9 @@ h4 {
     min-height: 100vh;
     padding-top: 90px;
     padding-bottom: 80px;
+    .course-name {
+        text-transform: uppercase;
+    }
 }
 
 .like__page {
@@ -236,6 +239,39 @@ h4 {
         flex-direction: column;
         box-shadow: 4px 4px 8px 0px rgb(34 60 80 / 20%);
     }
+    .MuiInputBase-root input {
+        padding: 5.5px 10px;
+    }
+    .MuiTabPanel-root {
+        padding: 24px 0;
+        .cart__page {
+            min-height: auto;
+            padding: 0;
+            .course-stats {
+                display: block;
+            }
+            .course-tags {
+                display: none;
+            }
+            .course-description {
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+    .RaitingDoughnut {
+        position: relative;
+        .rating {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 72px;
+        }
+    }
 }
 
 .exit {
@@ -338,3 +374,4 @@ h4 {
     gap: 10px;
     z-index: 3;
   }
+  

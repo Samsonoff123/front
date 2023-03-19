@@ -3,6 +3,7 @@ import Header from "../../Header";
 import { ReactComponent as Logout } from "../../../assets/logout.svg";
 import { ToastContainer } from 'react-toastify';
 import {
+  CircularProgress,
   Grid,
   TextField,
 } from "@mui/material";
@@ -14,24 +15,34 @@ import TabPanel from '@material-ui/lab/TabPanel';
 import Box from '@mui/material/Box';
 import axios from "axios";
 import { toast } from "react-toastify";
+import { ProductCart } from "../ProductDetail";
+import Demo from "./Demo";
+import RaitingDoughnut from "./RaitingDoughnut";
+import ProductTable from "./ProductTable";
 
 export default function Profile({isAdmin}) {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
-  const [tag, setTag] = useState("");
-  const [img, setImg] = useState("");
-  const [shortDescription, setShortDescription] = useState("");
-  const [description, setDescription] = useState("");
   const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [value, setValue] = useState(0);
   const [users, setUsers] = useState([]);
+  const [course, setCourse] = useState();
+  const [ratedCourse, setRatedCourse] = useState();
+  const [products, setProducts] = useState([]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     document.location.reload();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    const formData = new FormData(event.target)
+    const name = formData.get('name')
+    const price = formData.get('price')
+    const tag = formData.get('tag')
+    const img = formData.get('img')
+    const shortDescription = formData.get('shortDescription')
+    const description = formData.get('description')
     if (
       name === "" ||
       price === 0 ||
@@ -63,14 +74,7 @@ export default function Profile({isAdmin}) {
           toast.success("Продукт создан!", {
             position: "top-center",
             autoClose: 1000,
-          });
-          setName('')
-          setPrice(0)
-          setTag('')
-          setImg('')
-          setShortDescription('')
-          setDescription('')
-          
+          });  
         })
         .catch((e) => {
           console.log(e);
@@ -96,68 +100,66 @@ export default function Profile({isAdmin}) {
     })
   }, [])
 
+  useEffect(() => {
+    axios.get(`https://asem-backend.vercel.app/api/product`)
+      .then((response) => {
+        setProducts(response.data.rows)
+        const mostViewedProduct = response.data.rows.reduce((prev, current) => {
+          return (prev.views > current.views) ? prev : current;
+        })
+        const mostRatedProduct = response.data.rows.reduce((prev, current) => {
+          return (prev.rating * 20 > current.rating * 20) ? prev : current;
+        })
+        setCourse(mostViewedProduct);
+        setRatedCourse(mostRatedProduct)
+        localStorage.setItem('views', mostViewedProduct.views || 100)
+        localStorage.setItem('rating', mostViewedProduct.rating * 20 || 100)
+        setIsLoading(false)
+      });
+  }, []);
+
   return (
     <div>
       <Header isAdmin={isAdmin} />
       <div className="profile">
         <TabContext value={value}>
           <Box sx={{".MuiTabs-indicator": {backgroundColor: '#349E5B'}}}>
-            <TabList style={{color: '#349E5B'}} onChange={(e, value)=>setValue(value)}>
+            <TabList variant="scrollable" style={{color: '#349E5B'}} onChange={(e, value)=>setValue(value)}>
               <Tab label="Create product" value={0} />
               <Tab label="Order product" value={1} />
               <Tab label="Statistics" value={2} />
             </TabList>
           </Box>
           <TabPanel value={0}>
-            <div className="profile__creating">
+            <form onSubmit={handleSubmit} className="profile__creating">
               <TextField
                 error={isError}
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  setIsError(false);
-                }}
                 label="Name"
+                name="name"
                 variant="standard"
               />
               <TextField
                 error={isError}
-                value={price}
-                onChange={(e) => {
-                  setPrice(e.target.value);
-                  setIsError(false);
-                }}
                 type="number"
                 label="Price"
+                name="price"
                 variant="standard"
               />
               <TextField
                 error={isError}
-                value={tag}
-                onChange={(e) => {
-                  setTag(e.target.value);
-                  setIsError(false);
-                }}
+                name="tag"
                 label="Tag"
                 variant="standard"
               />
               <TextField
                 error={isError}
-                value={img}
-                onChange={(e) => {
-                  setImg(e.target.value);
-                  setIsError(false);
-                }}
+                name="img"
                 label="Image"
                 variant="standard"
               />
               <TextField
                 error={isError}
-                value={shortDescription}
-                onChange={(e) => {
-                  setShortDescription(e.target.value);
-                  setIsError(false);
-                }}
+                name="shortDescription"
                 multiline
                 rows={3}
                 label="Short Description"
@@ -165,26 +167,22 @@ export default function Profile({isAdmin}) {
               />
               <TextField
                 error={isError}
-                value={description}
-                onChange={(e) => {
-                  setDescription(e.target.value);
-                  setIsError(false);
-                }}
+                name="description"
                 multiline
                 rows={5}
                 label="Description"
                 variant="standard"
               />
-              <Button onClick={handleSubmit}>
+              <Button>
                 Create
               </Button>
-            </div>
+            </form>
           </TabPanel>
           <TabPanel style={{padding: "24px 0"}} value={1}>
             <Box borderBottom={1} paddingBottom={1}>
               <h4>Users</h4>
               {
-                users?.map(user =>
+                users.length && users?.map(user =>
                   <Grid marginBottom={4} justifyContent="space-between" rowGap={1} container>
                   <Grid item xs={2}>
                     <TextField 
@@ -245,9 +243,29 @@ export default function Profile({isAdmin}) {
                 )
               }               
             </Box>
-
+            <Box borderBottom={1} paddingBottom={1}>
+            {/* <h4>Products</h4>
+            <ProductTable products={products} /> */}
+            </Box>
           </TabPanel>
-          <TabPanel value={2}>TabPanel3</TabPanel>
+          <TabPanel value={2}>
+            {
+              isLoading ? 
+                <CircularProgress />
+              :
+              <>
+                <h3>Most viewed</h3>
+                <ProductCart {...course} />
+                <Demo />
+                <h3 style={{marginTop: 20}}>Most rated</h3>
+                <ProductCart {...ratedCourse} />
+                <div className="RaitingDoughnut">
+                  <div className="rating">{course?.rating}</div>
+                  <RaitingDoughnut />
+                </div>
+              </>
+            }
+          </TabPanel>
         </TabContext>
         <div className="exit">
           <span>Exit</span>
