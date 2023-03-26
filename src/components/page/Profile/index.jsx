@@ -243,10 +243,10 @@ export default function Profile({isAdmin}) {
                 )
               }               
             </Box>
-            <Box borderBottom={1} paddingBottom={1}>
-            {/* <h4>Products</h4>
-            <ProductTable products={products} /> */}
-            </Box>
+            {/* <Box borderBottom={1} paddingBottom={1}>
+            <h4>Products</h4>
+            <ProductTable products={products} />
+            </Box> */}
           </TabPanel>
           <TabPanel value={2}>
             {
