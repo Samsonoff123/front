@@ -36,7 +36,7 @@ h3 {
 
 .active {
     font-weight: 500;
-    color: #349E5B;
+    color: #FFFFFF;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -57,17 +57,27 @@ form {
     font-weight: 600;
     font-size: 16px;
     line-height: 20px;
-    color: #349E5B;
+    color: #FFFFFF;
 }
 
-.input__group input {
+.input__group input, .input__group select {
     outline: none;
     border: none;
-    border-bottom: 1px solid #C0C0C0;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    background-color: transparent;
     font-style: italic;
     font-weight: 300;
     font-size: 14px;
     line-height: 18px;
+}
+
+.input__group option {
+    background-color: #272727;
+}
+
+.input__group input::placeholder {
+    color: #ffffffa4
 }
 
 .fogot {
@@ -75,7 +85,7 @@ form {
     font-size: 14px;
     line-height: 18px;
     text-decoration: underline;
-    color: #349E5B;
+    color: #FFFFFF;
 }
 
 .button__group {
@@ -91,7 +101,7 @@ form {
     align-items: center;
     width: 100%;
     gap: 20px;
-    background: #349E5B;
+    background: #FFFFFF;
     margin-top: auto;
     margin-bottom: 0;
     padding: 20px 0;
@@ -102,9 +112,17 @@ form {
     gap: 10px;
 }
 
+.icons path:not(:nth-child(1)) {
+    fill: #fff;
+}
+
+.icons path:nth-child(1) {
+    fill: #483F98;
+}
+
 .bottom span {
     font-weight: 700;
     font-size: 14px;
     line-height: 18px;
-    color: #FFFFFF;
+    color: #483F98;
 }

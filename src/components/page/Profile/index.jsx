@@ -18,7 +18,13 @@ import { toast } from "react-toastify";
 import { ProductCart } from "../ProductDetail";
 import Demo from "./Demo";
 import RaitingDoughnut from "./RaitingDoughnut";
-import ProductTable from "./ProductTable";
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import StarBorderPurple500OutlinedIcon from '@mui/icons-material/StarBorderPurple500Outlined';
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { EffectFlip } from "swiper";
+import Product from "../../Product";
+import "swiper/css/effect-flip";
 
 export default function Profile({isAdmin}) {
   const [isError, setIsError] = useState(false);
@@ -28,6 +34,7 @@ export default function Profile({isAdmin}) {
   const [course, setCourse] = useState();
   const [ratedCourse, setRatedCourse] = useState();
   const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -55,7 +62,7 @@ export default function Profile({isAdmin}) {
     } else {
       axios
         .post(
-          "https://asem-backend.vercel.app/api/product/",
+          "https://umka-diplom-samsonoff123.vercel.app/api/product/",
           {
             name,
             price,
@@ -87,7 +94,7 @@ export default function Profile({isAdmin}) {
   };
 
   useEffect(() => {
-    axios.get('https://asem-backend.vercel.app/api/user', {
+    axios.get('https://umka-diplom-samsonoff123.vercel.app/api/user', {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
@@ -101,7 +108,7 @@ export default function Profile({isAdmin}) {
   }, [])
 
   useEffect(() => {
-    axios.get(`https://asem-backend.vercel.app/api/product`)
+    axios.get(`https://umka-diplom-samsonoff123.vercel.app/api/product`)
       .then((response) => {
         setProducts(response.data.rows)
         const mostViewedProduct = response.data.rows.reduce((prev, current) => {
@@ -118,13 +125,27 @@ export default function Profile({isAdmin}) {
       });
   }, []);
 
+  useEffect(() => {
+    axios.get('https://umka-diplom-samsonoff123.vercel.app/api/order', {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+    .then((res) => {
+      setOrders(res.data)
+    })
+    .catch((e) => {
+      console.log(e);
+    })
+  }, [])
+
   return (
     <div>
       <Header isAdmin={isAdmin} />
       <div className="profile">
         <TabContext value={value}>
-          <Box sx={{".MuiTabs-indicator": {backgroundColor: '#349E5B'}}}>
-            <TabList variant="scrollable" style={{color: '#349E5B'}} onChange={(e, value)=>setValue(value)}>
+          <Box sx={{".MuiTabs-indicator": {backgroundColor: '#483F98'}}}>
+            <TabList variant="scrollable" style={{color: '#483F98', backgroundColor: '#fff', borderRadius: 25}} onChange={(e, value)=>setValue(value)}>
               <Tab label="Create product" value={0} />
               <Tab label="Order product" value={1} />
               <Tab label="Statistics" value={2} />
@@ -179,19 +200,50 @@ export default function Profile({isAdmin}) {
             </form>
           </TabPanel>
           <TabPanel style={{padding: "24px 0"}} value={1}>
-            <Box borderBottom={1} paddingBottom={1}>
+            <Box className="profile__users" borderBottom={1} paddingBottom={1}>
+              <h4>Orders</h4>
+              {
+                orders.length && orders?.map((order) =>
+                  <>
+                    <Box>
+                      <TextField 
+                        type='text' 
+                        label="id"
+                        defaultValue={order.user.first_name}
+                        variant='outlined'
+                        inputProps={
+                          { readOnly: true }
+                        }
+                      />
+                      <TextField 
+                        type='text' 
+                        label="id"
+                        defaultValue={order.user.last_name}
+                        variant='outlined'
+                        inputProps={
+                          { readOnly: true }
+                        }
+                      />
+                    </Box>
+                    {
+                      order.products.map(product => 
+                        <Product product={product} />
+                      )
+                    }
+                    
+                  </>
+                )
+              }
               <h4>Users</h4>
               {
                 users.length && users?.map(user =>
-                  <Grid marginBottom={4} justifyContent="space-between" rowGap={1} container>
+                  <Grid marginBottom={4} justifyContent="space-between" rowGap={1} container bgcolor='#5350D5' borderRadius='25px' p="10px">
                   <Grid item xs={2}>
                     <TextField 
                       type='text' 
                       label="id"
                       defaultValue={user.id}
                       variant='outlined'
-                      color="success"
-                      focused
                       inputProps={
                         { readOnly: true }
                       }
@@ -203,8 +255,6 @@ export default function Profile({isAdmin}) {
                       label="email"
                       defaultValue={user.email}
                       variant='outlined'
-                      color="success"
-                      focused
                       inputProps={
                         { readOnly: true }
                       }
@@ -214,11 +264,33 @@ export default function Profile({isAdmin}) {
                   <Grid item xs={5.9}>
                     <TextField 
                       type='text' 
-                      label="fullname"
-                      defaultValue={user.full_name}
+                      label="first_name"
+                      defaultValue={user.first_name}
                       variant='outlined'
-                      color="success"
-                      focused
+                      inputProps={
+                        { readOnly: true }
+                      }
+                      sx={{width: "100%"}}
+                    />
+                  </Grid>  
+                  <Grid item xs={5.9}>
+                    <TextField 
+                      type='text' 
+                      label="last_name"
+                      defaultValue={user.last_name}
+                      variant='outlined'
+                      inputProps={
+                        { readOnly: true }
+                      }
+                      sx={{width: "100%"}}
+                    />
+                  </Grid>   
+                  <Grid item xs={5.9}>
+                    <TextField 
+                      type='text' 
+                      label="first_name"
+                      defaultValue={user.birthday}
+                      variant='outlined'
                       inputProps={
                         { readOnly: true }
                       }
@@ -229,10 +301,20 @@ export default function Profile({isAdmin}) {
                     <TextField 
                       type='text' 
                       label="role"
+                      defaultValue={user.sex}
+                      variant='outlined'
+                      inputProps={
+                        { readOnly: true }
+                      }
+                      sx={{width: "100%"}}
+                    />
+                  </Grid>   
+                  <Grid item xs={12}>
+                    <TextField 
+                      type='text' 
+                      label="role"
                       defaultValue={user.role}
                       variant='outlined'
-                      color="success"
-                      focused
                       inputProps={
                         { readOnly: true }
                       }
@@ -254,12 +336,65 @@ export default function Profile({isAdmin}) {
                 <CircularProgress />
               :
               <>
-                <h3>Most viewed</h3>
-                <ProductCart {...course} />
+              <h4 style={{color: '#fff', marginTop: 0, fontWeight: 100}}>
+                Statistics for the week
+              </h4>
+              <div className="profile__statistic_cards">
+                <Box className="profile__statistic_element" bgcolor='#FFB258' style={{maxWidth: 'calc(50% - 5px)'}}>
+                  <span>Completed Orders</span>
+                  <div className="count">{Math.floor(Math.random()*8)*10 + 15}</div>
+                </Box>
+                <Box className="profile__statistic_element" bgcolor='#FF5959' style={{maxWidth: 'calc(50% - 5px)'}}>
+                  <span>In processing</span>
+                  <div className="count">{Math.floor(Math.random()*8)*1 + 15}</div>
+                </Box>
+                <Box className="profile__statistic_element" bgcolor='#4CD979' style={{maxWidth: 'calc(65% - 5px)'}}>
+                  <span>Number of new users</span>
+                  <div className="count">{[1, 2, 3][Math.floor(Math.random())]}</div>
+                </Box>
+                <Box className="profile__statistic_element" bgcolor='#4DB4FF' style={{maxWidth: 'calc(35% - 5px)'}}>
+                  <span>Users online</span>
+                  <div className="count">{[6, 7, 8][Math.floor(Math.random())]}</div>
+                </Box>
+              </div>
+              {
+                (ratedCourse && course) && (
+                  <div className="profile__most_products">
+                  <div className="profile__most_element">
+                    <Swiper effect={"flip"} modules={[EffectFlip]}>
+                      <SwiperSlide>
+                        <div className="profile__most_cart" style={{backgroundColor: '#4D77F7'}}>
+                          <RemoveRedEyeOutlinedIcon />
+                          <h4>Most viewed</h4>
+                          <span>This item has been viewed {course?.views} times</span>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <Product product={course} />
+                      </SwiperSlide>
+                    </Swiper>
+                  </div>
+                  <div className="profile__most_element">
+                    <Swiper effect={"flip"} modules={[EffectFlip]}>
+                      <SwiperSlide>
+                        <div className="profile__most_cart" style={{backgroundColor: '#9059FD'}}>
+                          <StarBorderPurple500OutlinedIcon />
+                          <h4>Most rated</h4>
+                          <span>This product was rated with an average of {ratedCourse?.rating} points</span>
+                        </div>
+                      </SwiperSlide>
+                      <SwiperSlide>
+                        <Product product={ratedCourse} />
+                      </SwiperSlide>
+                    </Swiper>
+                  </div>
+                </div>
+                )
+              }
+              <div style={{borderRadius: 25, overflow: 'hidden'}}>
                 <Demo />
-                <h3 style={{marginTop: 20}}>Most rated</h3>
-                <ProductCart {...ratedCourse} />
-                <div className="RaitingDoughnut">
+              </div>
+                <div className="RaitingDoughnut" style={{borderRadius: 25, overflow: 'hidden'}}>
                   <div className="rating">{course?.rating}</div>
                   <RaitingDoughnut />
                 </div>
@@ -267,11 +402,10 @@ export default function Profile({isAdmin}) {
             }
           </TabPanel>
         </TabContext>
-        <div className="exit">
+        <div className="exit" onClick={handleLogout}>
           <span>Exit</span>
-          <Logout
-            onClick={handleLogout}
-            style={{ cursor: "pointer", width: 50, height: 50, fill: "black" }}
+          <LogoutOutlinedIcon
+            style={{ cursor: "pointer", width: 40, height: 40, fill: "black" }}
           />
         </div>
       </div>

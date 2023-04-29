@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { ReactComponent as Menu } from '../../assets/menu.svg'
-import { ReactComponent as Cart } from '../../assets/cart.svg'
-import { ReactComponent as Like } from '../../assets/like.svg'
-import { ReactComponent as Profile } from '../../assets/profile.svg'
-import { ReactComponent as Back } from '../../assets/back.svg'
-import { ReactComponent as Logout } from '../../assets/logout.svg'
-import { Link, useNavigate } from 'react-router-dom'
+import React from 'react'
+import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import UndoOutlinedIcon from '@mui/icons-material/UndoOutlined';
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 export default function Header({pageName, back = true, isAdmin}) {
     const navigate = useNavigate()
+    const {pathname} = useLocation()
 
     const handleLogout = () => {
         localStorage.removeItem('token')
@@ -21,7 +22,7 @@ export default function Header({pageName, back = true, isAdmin}) {
         pageName &&
 
         <div className="header_top" >
-            { back && <Back onClick={()=>navigate(-1)} /> }
+            { back && <UndoOutlinedIcon onClick={()=>navigate(-1)} /> }
             <span>
                 {pageName}
             </span>
@@ -30,22 +31,22 @@ export default function Header({pageName, back = true, isAdmin}) {
     }
 
     <div className='header'>
-        <Link to={"/"} className="header__element">
-            <Menu />
+        <Link to={"/"} className={(pathname === "/") ? "header__element active" : "header__element"}>
+            <WidgetsOutlinedIcon />
         </Link>
-        <Link to="/cart" className="header__element">
-            <Cart />
+        <Link to="/cart" className={(pathname === "/cart") ? "header__element active" : "header__element"}>
+            <ShoppingCartOutlinedIcon />
         </Link>
-        <Link to="/like" className="header__element">
-            <Like />
+        <Link to="/like" className={(pathname === "/like") ? "header__element active" : "header__element"}>
+            <FavoriteBorderOutlinedIcon />
         </Link>
         {
             !!isAdmin ?
-            <Link to="/profile" className="header__element">
-                <Profile />
+            <Link to="/profile" className={(pathname === "/profile") ? "header__element active" : "header__element"}>
+                <AccountBoxOutlinedIcon />
             </Link>
             : <div className="header__element">
-                <Logout onClick={handleLogout} />
+                <LogoutOutlinedIcon onClick={handleLogout} />
             </div>
         }
     </div>

@@ -1,8 +1,6 @@
 import { Rating } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
-import { ReactComponent as Cart } from '../../assets/cart.svg'
-import { ReactComponent as Like } from '../../assets/like.svg'
 import { useActions } from '../../hooks/useActions';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Dialog from '@mui/material/Dialog';
@@ -14,6 +12,11 @@ import Button from '../../components/Button'
 import axios from 'axios';
 import { toast, ToastContainer } from "react-toastify";
 import { Link } from 'react-router-dom';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
 
 export default function Product({product}) {
     const { addToCart, removeCart, addToLike, removeLike } = useActions()
@@ -44,7 +47,7 @@ export default function Product({product}) {
     }
 
     const handleRemove = (id) => {
-      axios.delete(`https://asem-backend.vercel.app/api/product/${id}`, {
+      axios.delete(`https://umka-diplom-samsonoff123.vercel.app/api/product/${id}`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -74,20 +77,30 @@ export default function Product({product}) {
     
 
   return (
-    <Link to={`/product/${product.id}`}>
+    
     <div className='product__element' key={product.id}>
         { isAdmin && <DeleteOutlineIcon className='removeButton' onClick={()=>setOpen(true)} /> }
-        <img src={product.img} alt="productImg" />
-        <span className='price'>{product.price} KZT</span>
-        <div className='product__info'>
-            <div className="product__title">{product.name}</div>
-            <div className="product__description">{product.shortDescription.text}</div>
-            <Rating style={{marginTop: 'auto'}} name="half-rating" precision={0.5} defaultValue={product.rating} readOnly />
-            <div className='icons'>
-                <Cart className={isExistInCart && 'cart__active'} onClick={(e)=>handleCart(e)} />
-                <Like className={isExistInLike && 'cart__active'} onClick={(e)=>handleLike(e)} />
-            </div>
-        </div>
+        <Link to={`/product/${product.id}`}>
+          <img src={product.img} alt="productImg" />
+          <span className='price'>{product.price} KZT</span>
+          <div className='product__info'>
+              <div className="product__title">{product.name}</div>
+              <div className="product__description">{product.shortDescription.text}</div>
+              <Rating style={{marginTop: 'auto'}} name="half-rating" precision={0.5} defaultValue={product.rating} readOnly />
+              <div className='icons'>
+                {
+                  isExistInCart 
+                  ? <ShoppingCartIcon onClick={(e)=>handleCart(e)} />
+                  : <AddShoppingCartIcon onClick={(e)=>handleCart(e)} />
+                }
+                  {
+                    isExistInLike 
+                    ? <FavoriteIcon onClick={(e)=>handleLike(e)} />
+                    : <FavoriteBorderIcon onClick={(e)=>handleLike(e)} />
+                  }
+              </div>
+          </div>
+        </Link>
         <Dialog
           open={open}
           onClose={()=>setOpen(false)}
@@ -103,14 +116,13 @@ export default function Product({product}) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button white onClick={()=>setOpen(false)}>Disagree</Button>
-            <Button onClick={()=>handleRemove(product.id)} autoFocus>
+            <Button style={{minWidth:'auto'}} white onClick={()=>setOpen(false)}>Disagree</Button>
+            <Button style={{minWidth:'auto'}} onClick={()=>handleRemove(product.id)} autoFocus>
               Agree
             </Button>
           </DialogActions>
         </Dialog>
         <ToastContainer />
     </div>
-    </Link>
   )
 }

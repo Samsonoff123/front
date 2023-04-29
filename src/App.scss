@@ -22,9 +22,9 @@ h4 {
     position: fixed;
     bottom: 0;
     left: 0;
-    padding: 20px;
+    padding: 10px;
     width: 100%;
-    background-color: #349E5B;
+    background-color: #ebeffd;
     display: flex;
     justify-content: space-between;
     border-radius: 15px 15px 0 0;
@@ -33,10 +33,34 @@ h4 {
 
     .header__element {
         cursor: pointer;
+        border-radius: 25px;
+        max-width: 200px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
 
         svg {
-            width: 40px;
-            height: 40px;
+            width: 30px;
+            height: 30px;
+            
+            path {
+                fill: #483F98;
+            }
+        }
+        &:hover {
+            background-color: #483F98;
+
+            svg path {
+                fill: #fff;
+            }
+        }
+
+        &.active {
+            background-color: #483F98;
+
+            svg path {
+                fill: #fff;
+            }
         }
     }
 }
@@ -48,55 +72,119 @@ h4 {
     padding: 10px;
     width: 100%;
     height: 60px;
-    background-color: #349E5B;
+    background-color: #ebeffd;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-radius: 0 0 15px 15px;
-    padding-top: 50px;
-    padding-bottom: 30px;
+    padding-top: 30px;
+    padding-bottom: 20px;
     z-index: 99;
 
     span {
-        font-size: 18px;
+        font-size: 16px;
         text-transform: uppercase;
-        color: #FFFBEB;
+        color: #483F98;
         margin: 0 auto;
     }
 
     svg {
+        fill: #483F98;
         cursor: pointer;
     }
 }
 
 .main, .profile {
-    padding: 10px;
+    padding: 5px;
 }
 
 .main {
-    height: calc(100vh - 84px);
+    height: calc(100vh - 55px);
     overflow-y: scroll;
+    border-radius: 25px;
+    padding-top: 65px;
+    padding-bottom: 80px;
 }
 
 .products__main {
-    background-color: #fffbeb70;
+    background: linear-gradient(342deg, rgba(72,63,152,1) 0%, rgba(105,173,209,1) 100%);
     min-height: 100vh;
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-radius: 0 0 25px 25px;
+        padding: 0;
+        
+        .product__main {
+            height: 60vh;
+            padding: 5px;
+        }
+
+        .products__head {
+            background: #483F98;
+            padding: 20px 5px;
+            padding-top: 5px;
+            margin-bottom: 10px;
+            border-radius: 0 0 30px 30px;
+
+            h3 {
+                color: #fff;
+                font-size: 20px;
+                font-weight: bold;
+                margin: 0;
+                text-transform: uppercase;
+            }
+
+            span {
+                display: block;
+                color: #fff;
+                font-size: 16px;
+                margin: 10px 0;
+                max-width: 250px;
+                text-align: left;
+            }
+
+            .products__head_group {
+                display: flex;
+                align-items: center;
+
+                img {
+                    max-width: 40%;
+                    object-fit: contain;
+                }
+            }
+
+            .products__head_buttons {
+                display: flex;
+                justify-content: center;
+                gap: 10px;
+
+                button {
+                    min-width: auto;
+                }
+            }
+        }
+    }
 }
 
 .cart__page {
-    background-color: #fffbeb70;
+    position: relative;
+    background: linear-gradient(342deg, rgba(72,63,152,1) 0%, rgba(105,173,209,1) 100%);
     min-height: 100vh;
-    padding-top: 90px;
-    padding-bottom: 80px;
+    height: 100vh;
     .course-name {
         text-transform: uppercase;
+    }
+    .main {
+        height: calc(100vh - 100px);
     }
 }
 
 .like__page {
-    background-color: #fffbeb70;
+    background: linear-gradient(342deg, rgba(72,63,152,1) 0%, rgba(105,173,209,1) 100%);
     min-height: 100vh;
-    padding-top: 90px;
+    height: 100vh;
 }
 
 .like, .cart {
@@ -134,17 +222,23 @@ h4 {
     }
 }
 
+.products {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
 .product__main {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-
-    a {
-        width: calc(50% - 5px);
-    }
+    justify-content: space-between;
+    row-gap: 10px;
+    height: calc(100vh - 80px);
 }
 
 .product__element {
+    width: calc(50% - 5px);
     position: relative;
     display: flex;
     flex-direction: column;
@@ -185,6 +279,7 @@ h4 {
         justify-content: space-between;
         gap: 10px;
         font-size: 16px;
+        font-weight: 600;
     }
 
     .product__description {
@@ -198,7 +293,7 @@ h4 {
     .price {
         margin-top: -48px;
         padding: 10px;
-        background-color: #349e5b62;
+        background-color: #483f98b3;
         color: white;
         box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
     }
@@ -208,24 +303,15 @@ h4 {
         justify-content: space-between;
 
         svg {
-            width: 35px;
-            height: 35px;
-            cursor: pointer;
-            path {
-                fill: black;
-            }
-        }
-
-        .cart__active {
-            background: #ff000026;
-            border-radius: 50%;
+            fill: #483F98;
         }
     }
 }
 
 .profile {
-    height: calc(100vh - 84px);
+    height: calc(100vh - 50px);
     overflow-y: scroll;
+    background: linear-gradient(180deg, rgba(72,63,152,1) 0%, rgba(105,173,209,1) 100%);
 
     h3 {
         margin-top: 0;
@@ -233,7 +319,7 @@ h4 {
     }
     
     .profile__creating {
-        background-color: #f8ede3c2;
+        background-color: #fff;
         padding: 25px;
         border-radius: 25px;
         max-width: 400px;
@@ -268,6 +354,7 @@ h4 {
     }
     .RaitingDoughnut {
         position: relative;
+        margin-top: 20px;
         .rating {
             position: absolute;
             bottom: 30%;
@@ -279,10 +366,10 @@ h4 {
 }
 
 .exit {
-    margin-top: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 10px;
     gap: 10px;
 
     span {
@@ -295,21 +382,23 @@ h4 {
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
+    padding-top: 20px;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
+    background-color: #483F98;
   }
   
   .course-image {
     width: 100%;
     height: 250px;
+    border-bottom: #fff solid 2px;
   }
   
   .course-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
   
   .course-details {
@@ -326,13 +415,13 @@ h4 {
     font-size: 20px;
     text-align: left;
     font-weight: bold;
-    color: #349e5b;
+    color: #ebeffd;
   }
   
   .course-price {
     font-size: 18px;
     font-weight: bold;
-    color: #349e5b;
+    color: #ebeffd;
     margin-bottom: 10px;
   }
   
@@ -343,8 +432,8 @@ h4 {
   }
   
   .tag {
-    background-color: #349e5b;
-    color: #fff;
+    background-color: #ebeffd;
+    color: #483F98;
     font-size: 14px;
     font-weight: bold;
     padding: 5px 10px;
@@ -356,14 +445,14 @@ h4 {
   .course-description {
     margin-bottom: 10px;
     font-size: 16px;
-    color: #555;
+    color: #fff;
   }
   
   .course-stats {
     display: flex;
     justify-content: space-between;
     font-size: 14px;
-    color: #555;
+    color: #fff;
   }
 
   .course-views {
@@ -379,3 +468,89 @@ h4 {
     z-index: 3;
   }
   
+  .profile__users {
+      input {
+        color: #fff
+      }
+      h4 {
+        color: #fff;
+        margin: 0;
+        margin-bottom: 20px;
+      }
+  }
+
+  .profile__most_products {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    .profile__most_element {
+        width: calc(50% - 5px);
+        height: 300px;
+        border-radius: 15px;
+
+        .swiper {
+            overflow: visible;
+        }
+
+        .product__element {
+            height: 300px;
+            width: 100%;
+            .product__info {
+                height: auto;
+                gap: 5px;
+            }
+            .product__description {
+                display: none;
+                height: 0;
+            }
+        }
+
+        .profile__most_cart {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 300px;
+            border-radius: 15px;
+            padding: 20px;
+            
+            h4 {
+                margin: 0;
+            }
+
+            span {
+                text-align: center;
+            }
+        }
+    }
+  }
+
+  .profile__statistic_cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+
+    .profile__statistic_element {
+        padding: 15px;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+        height: 100px;
+        color: #fff;
+
+        span {
+            font-size: 14px;
+        }
+
+        .count {
+            font-size: 22px;
+            font-weight: bold;
+        }
+    }
+  }

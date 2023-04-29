@@ -82,7 +82,7 @@ function ProductDetail({isAdmin}) {
 
   useEffect(() => {
     axios
-      .get(`https://asem-backend.vercel.app/api/product/${id}`)
+      .get(`https://umka-diplom-samsonoff123.vercel.app/api/product/${id}`)
       .then((response) => {
         setCourse(response.data);
       });
@@ -90,8 +90,10 @@ function ProductDetail({isAdmin}) {
 
   return course ? (
     <>
-      <Header isAdmin={isAdmin} pageName="Product page" />
-      <ProductCart {...course} />
+        <Header isAdmin={isAdmin} pageName="Product page" />
+        <div className="main" style={{paddingBottom: 0}}>
+          <ProductCart {...course} />
+        </div>
     </>
   ) : (
     <div className={classes.courseCard}>
@@ -130,7 +132,7 @@ export function ProductCart(props) {
   const handleSetRating = (event, value) => {
     event.preventDefault()
     if (value) {
-      axios.post(`https://asem-backend.vercel.app/api/product/set-rating/${id}`, {
+      axios.post(`https://umka-diplom-samsonoff123.vercel.app/api/product/set-rating/${id}`, {
           rating: value
         },
         {
@@ -149,7 +151,6 @@ export function ProductCart(props) {
   }
 
   return (
-    <div className="cart__page">
       <div className="course-card">
         <div className="course-image">
           <img src={img} alt={name} />
@@ -183,7 +184,6 @@ export function ProductCart(props) {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

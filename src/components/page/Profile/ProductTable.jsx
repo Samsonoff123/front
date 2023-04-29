@@ -12,8 +12,6 @@ export default function ProductTable({ products }) {
     const onSubmit = (data) => {
         console.log(formState);
     }
-    console.log(formState);
-
   return products?.map((product) => (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Grid
@@ -30,8 +28,6 @@ export default function ProductTable({ products }) {
             label="id"
             defaultValue={product.id}
             variant="outlined"
-            color="success"
-            focused
             inputProps={{ readOnly: true }}
           />
         </Grid>
@@ -41,7 +37,6 @@ export default function ProductTable({ products }) {
             label="name"
             defaultValue={product.name}
             variant="outlined"
-            color="success"
             focused
             inputProps={{ readOnly: false }}
             sx={{ width: "100%" }}
@@ -54,7 +49,6 @@ export default function ProductTable({ products }) {
             label="createdAt"
             defaultValue={product.createdAt}
             variant="outlined"
-            color="success"
             focused
             inputProps={{ readOnly: true }}
             sx={{ width: "100%" }}
@@ -66,7 +60,6 @@ export default function ProductTable({ products }) {
             label="updatedAt"
             defaultValue={product.updatedAt}
             variant="outlined"
-            color="success"
             focused
             inputProps={{ readOnly: true }}
             sx={{ width: "100%" }}
@@ -78,7 +71,6 @@ export default function ProductTable({ products }) {
             label="description"
             defaultValue={product.description.text}
             variant="outlined"
-            color="success"
             focused
             inputProps={{ readOnly: false }}
             sx={{ width: "100%" }}
@@ -93,7 +85,6 @@ export default function ProductTable({ products }) {
             label="shortDescription"
             defaultValue={product.shortDescription.text}
             variant="outlined"
-            color="success"
             focused
             inputProps={{ readOnly: false }}
             sx={{ width: "100%" }}
@@ -108,7 +99,6 @@ export default function ProductTable({ products }) {
             label="tag"
             defaultValue={product.tag}
             variant="outlined"
-            color="success"
             focused
             inputProps={{ readOnly: false }}
             sx={{ width: "100%" }}
@@ -123,7 +113,6 @@ export default function ProductTable({ products }) {
             label="Views"
             defaultValue={product.views}
             variant="outlined"
-            color="success"
             focused
             inputProps={{ readOnly: true }}
             sx={{ width: "100%" }}
@@ -135,7 +124,6 @@ export default function ProductTable({ products }) {
             label="Rating"
             defaultValue={product.rating}
             variant="outlined"
-            color="success"
             focused
             inputProps={{ readOnly: true }}
             sx={{ width: "100%" }}

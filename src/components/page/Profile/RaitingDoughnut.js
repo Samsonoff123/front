@@ -37,7 +37,7 @@ export default class RaitingDoughnut extends React.PureComponent {
           <div id="rating123">{localStorage.getItem('rating')}</div>
           </PieSeries>
           <Title
-            text="Rating"
+            text="Average rating of all products"
           />
           <Animation />
         </Chart>

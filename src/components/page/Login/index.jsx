@@ -19,7 +19,7 @@ export default function Login({setIsAuth}) {
     const password = formData.get('password')
 
     if (email !== '' && password !== '') {
-      axios.post('https://asem-backend.vercel.app/api/user/login', {
+      axios.post('https://umka-diplom-samsonoff123.vercel.app/api/user/login', {
         email, password
       }).then((res) => {
         localStorage.setItem('token', res.data.token)
@@ -41,13 +41,16 @@ export default function Login({setIsAuth}) {
   const handleSubmitReg = (e) => {
     e.preventDefault()
     const formData = new FormData(e.target)
-    const full_name = formData.get('full_name')
     const email = formData.get('email')
     const password = formData.get('password')
+    const first_name = formData.get('first_name')
+    const last_name = formData.get('last_name')
+    const birthday = formData.get('birthday')
+    const sex = formData.get('sex')
 
-    if (full_name !== '' && email !== '' && password !== '') {
-      axios.post('https://asem-backend.vercel.app/api/user/reg', {
-        email, password, full_name
+    if (first_name !== '' && email !== '' && password !== '' && last_name !== '' && birthday !== '' && sex !== '') {
+      axios.post('https://umka-diplom-samsonoff123.vercel.app/api/user/reg', {
+        email, password, first_name, last_name, birthday, sex
       }).then((res) => {
         localStorage.setItem('token', res.data.token)
         setIsAuth(true);
@@ -66,11 +69,10 @@ export default function Login({setIsAuth}) {
   }
 
   return (
-    <>
+    <div style={{background: 'linear-gradient(342deg, rgba(72,63,152,1) 0%, rgba(105,173,209,1) 100%)'}}>
       <ToastContainer />
 
     <div className={styles.flex}>
-    <img src={loginImage} alt="loginImage" />
       <div className={styles.main}>
           <h3>
             <span onClick={()=>!login && setLogin(true)} className={!login && styles.active}>Log In</span> 
@@ -83,7 +85,7 @@ export default function Login({setIsAuth}) {
             <form id="testid" onSubmit={(e)=>handleSubmitLogin(e)}>
               <div className={styles.input__group}>
                 <label>E-MAIL</label>
-                <input name='email' type="email" placeholder='Enter your email addres' />
+                <input name='email' type="text" placeholder='Enter your email addres' />
               </div>
               <div className={styles.input__group}>
                 <label>PASSWORD</label>
@@ -105,8 +107,23 @@ export default function Login({setIsAuth}) {
               <input name='password' type="password" placeholder='**********' />
             </div>
             <div className={styles.input__group}>
-              <label>FULL NAME</label>
-              <input name='full_name' type="text" placeholder='Enter your full name' />
+              <label>FIRST NAME</label>
+              <input name='first_name' type="text" placeholder='Enter your first name' />
+            </div>
+            <div className={styles.input__group}>
+              <label>LAST NAME</label>
+              <input name='last_name' type="text" placeholder='Enter your last name' />
+            </div>
+            <div className={styles.input__group}>
+              <label>BIRTHDAY</label>
+              <input name='birthday' type="date" />
+            </div>
+            <div className={styles.input__group}>
+              <label>SEX</label>
+              <select name='sex'>
+                <option value="men">MEN</option>
+                <option value="men">WOMAN</option>
+              </select>
             </div>
             <div className={styles.button__group}>
               <Button style={{minWidth: '50%'}}>Sign In</Button>
@@ -125,6 +142,6 @@ export default function Login({setIsAuth}) {
             </div>
           </div>
     </div>
-    </>
+    </div>
   )
 }
