@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../Header";
-import { ReactComponent as Logout } from "../../../assets/logout.svg";
 import { ToastContainer } from 'react-toastify';
 import {
   CircularProgress,
@@ -15,7 +14,6 @@ import TabPanel from '@material-ui/lab/TabPanel';
 import Box from '@mui/material/Box';
 import axios from "axios";
 import { toast } from "react-toastify";
-import { ProductCart } from "../ProductDetail";
 import Demo from "./Demo";
 import RaitingDoughnut from "./RaitingDoughnut";
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
@@ -139,6 +137,25 @@ export default function Profile({isAdmin}) {
     })
   }, [])
 
+  const handleRemoveOrder = (id) => {
+    axios.delete(`https://umka-diplom-samsonoff123.vercel.app/api/order/${id}`, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })        
+      .then((res) => {
+        toast.success("Заказ удален!", {
+          position: "top-center",
+          autoClose: 1000,
+        });  
+        setOrders(res.data)
+      })
+  }
+
+  const handleSubmitOrder = (id) => {
+    handleRemoveOrder(id)
+  }
+
   return (
     <div>
       <Header isAdmin={isAdmin} />
@@ -203,12 +220,12 @@ export default function Profile({isAdmin}) {
             <Box className="profile__users" borderBottom={1} paddingBottom={1}>
               <h4>Orders</h4>
               {
-                orders.length && orders?.map((order) =>
+                !!orders.length && orders?.map((order) =>
                   <>
-                    <Box>
+                    <Box display='flex' mt={2} mb={1} gap='10px'>
                       <TextField 
                         type='text' 
-                        label="id"
+                        label="first_name"
                         defaultValue={order.user.first_name}
                         variant='outlined'
                         inputProps={
@@ -217,7 +234,7 @@ export default function Profile({isAdmin}) {
                       />
                       <TextField 
                         type='text' 
-                        label="id"
+                        label="last_name"
                         defaultValue={order.user.last_name}
                         variant='outlined'
                         inputProps={
@@ -225,18 +242,47 @@ export default function Profile({isAdmin}) {
                         }
                       />
                     </Box>
-                    {
-                      order.products.map(product => 
-                        <Product product={product} />
-                      )
-                    }
-                    
+                    <Box display='flex' mb={1} gap='10px'>
+                      <TextField 
+                        type='text' 
+                        label="email"
+                        defaultValue={order.user.email}
+                        variant='outlined'
+                        inputProps={
+                          { readOnly: true }
+                        }
+                      />
+                      <TextField 
+                        type='text' 
+                        label="birthday"
+                        defaultValue={order.user.birthday}
+                        variant='outlined'
+                        inputProps={
+                          { readOnly: true }
+                        }
+                      />
+                    </Box>
+                    <Box display='flex' flexWrap='wrap' gap='10px' borderBottom='1px solid white' pb={1}>
+                      {
+                        order.products.map(product => 
+                          <Product product={product} />
+                        )
+                      }
+                      <Box display='flex' width='100%' justifyContent='space-between' sx={{'button': {minWidth: 'auto', width: '48%'}, 'a': {color: '#fff'}}}>
+                        <Button white onClick={()=>handleRemoveOrder(order.id)}>Reject</Button>
+                        <Button onClick={()=>handleSubmitOrder(order.id)}><a href={`mailto:${order.user.email}`}>Accept</a></Button>
+                      </Box>
+                    </Box>
+ 
                   </>
                 )
               }
-              <h4>Users</h4>
               {
-                users.length && users?.map(user =>
+                !orders.length && <>no orders</>
+              }   
+              <h4 style={{marginTop: 20}}>Users</h4>
+              {
+                !!users.length && users?.map(user =>
                   <Grid marginBottom={4} justifyContent="space-between" rowGap={1} container bgcolor='#5350D5' borderRadius='25px' p="10px">
                   <Grid item xs={2}>
                     <TextField 
@@ -323,7 +369,10 @@ export default function Profile({isAdmin}) {
                   </Grid>   
                 </Grid>
                 )
-              }               
+              }            
+              {
+                !users.length && <>no users</>
+              }   
             </Box>
             {/* <Box borderBottom={1} paddingBottom={1}>
             <h4>Products</h4>
@@ -342,19 +391,19 @@ export default function Profile({isAdmin}) {
               <div className="profile__statistic_cards">
                 <Box className="profile__statistic_element" bgcolor='#FFB258' style={{maxWidth: 'calc(50% - 5px)'}}>
                   <span>Completed Orders</span>
-                  <div className="count">{Math.floor(Math.random()*8)*10 + 15}</div>
+                  <div className="count">{Math.floor(Math.random() * 6)}</div>
                 </Box>
                 <Box className="profile__statistic_element" bgcolor='#FF5959' style={{maxWidth: 'calc(50% - 5px)'}}>
                   <span>In processing</span>
-                  <div className="count">{Math.floor(Math.random()*8)*1 + 15}</div>
+                  <div className="count">{Math.floor(Math.random() * 6)}</div>
                 </Box>
                 <Box className="profile__statistic_element" bgcolor='#4CD979' style={{maxWidth: 'calc(65% - 5px)'}}>
                   <span>Number of new users</span>
-                  <div className="count">{[1, 2, 3][Math.floor(Math.random())]}</div>
+                  <div className="count">{Math.floor(Math.random() * 4)}</div>
                 </Box>
                 <Box className="profile__statistic_element" bgcolor='#4DB4FF' style={{maxWidth: 'calc(35% - 5px)'}}>
                   <span>Users online</span>
-                  <div className="count">{[6, 7, 8][Math.floor(Math.random())]}</div>
+                  <div className="count">{Math.floor(Math.random() * 12)}</div>
                 </Box>
               </div>
               {
@@ -395,7 +444,7 @@ export default function Profile({isAdmin}) {
                 <Demo />
               </div>
                 <div className="RaitingDoughnut" style={{borderRadius: 25, overflow: 'hidden'}}>
-                  <div className="rating">{course?.rating}</div>
+                  <div className="rating">{course?.rating || 5}</div>
                   <RaitingDoughnut />
                 </div>
               </>

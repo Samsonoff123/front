@@ -63,7 +63,7 @@ export default function Cart({isAdmin}) {
           aria-describedby="alert-dialog-description"
         >
           <DialogTitle id="alert-dialog-title">
-            {"Remove modal"}
+            {"Confirmation modal"}
           </DialogTitle>
           <DialogContent>
             <DialogContentText id="alert-dialog-description">

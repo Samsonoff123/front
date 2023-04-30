@@ -477,6 +477,14 @@ h4 {
         margin: 0;
         margin-bottom: 20px;
       }
+
+      label {
+        color: #fff;
+      }
+
+      fieldset {
+        border-color: #fff;
+      }
   }
 
   .profile__most_products {
@@ -516,6 +524,7 @@ h4 {
             height: 300px;
             border-radius: 15px;
             padding: 20px;
+            color: #fff;
             
             h4 {
                 margin: 0;
