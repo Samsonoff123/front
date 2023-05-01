@@ -2,6 +2,8 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import Header from '../../Header'
 import Product from '../../Product'
+import { NoData } from '../../NoData'
+import { Loading } from '../../Loading'
 
 export default function Like({isAdmin}) {
   const { like } = useSelector(state => state)
@@ -20,10 +22,10 @@ export default function Like({isAdmin}) {
                         like.map((product) =>
                           <Product product={product} />
                         )
-                      : <>no data</>
+                      : <NoData/>
                     }
                 </div>
-                : <>loading</>
+                : <Loading/>
               }
             </div>
         </div>

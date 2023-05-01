@@ -23,6 +23,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { EffectFlip } from "swiper";
 import Product from "../../Product";
 import "swiper/css/effect-flip";
+import { NoData } from "../../NoData";
 
 export default function Profile({isAdmin}) {
   const [isError, setIsError] = useState(false);
@@ -278,12 +279,12 @@ export default function Profile({isAdmin}) {
                 )
               }
               {
-                !orders.length && <>no orders</>
+                !orders.length && <NoData />
               }   
               <h4 style={{marginTop: 20}}>Users</h4>
               {
                 !!users.length && users?.map(user =>
-                  <Grid marginBottom={4} justifyContent="space-between" rowGap={1} container bgcolor='#5350D5' borderRadius='25px' p="10px">
+                  <Grid marginBottom={4} justifyContent="space-between" rowGap={1} container bgcolor='#5350d58f' borderRadius='25px' p="10px">
                   <Grid item xs={2}>
                     <TextField 
                       type='text' 
@@ -371,7 +372,7 @@ export default function Profile({isAdmin}) {
                 )
               }            
               {
-                !users.length && <>no users</>
+                !users.length && <NoData />
               }   
             </Box>
             {/* <Box borderBottom={1} paddingBottom={1}>

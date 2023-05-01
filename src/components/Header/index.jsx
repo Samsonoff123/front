@@ -34,12 +34,21 @@ export default function Header({pageName, back = true, isAdmin}) {
         <Link to={"/"} className={(pathname === "/") ? "header__element active" : "header__element"}>
             <WidgetsOutlinedIcon />
         </Link>
-        <Link to="/cart" className={(pathname === "/cart") ? "header__element active" : "header__element"}>
-            <ShoppingCartOutlinedIcon />
-        </Link>
-        <Link to="/like" className={(pathname === "/like") ? "header__element active" : "header__element"}>
-            <FavoriteBorderOutlinedIcon />
-        </Link>
+        {
+            !isAdmin && (
+                <Link to="/cart" className={(pathname === "/cart") ? "header__element active" : "header__element"}>
+                    <ShoppingCartOutlinedIcon />
+                </Link>
+            )
+        }
+        {
+            !isAdmin && (
+                <Link to="/like" className={(pathname === "/like") ? "header__element active" : "header__element"}>
+                    <FavoriteBorderOutlinedIcon />
+                </Link>
+            )
+        }
+
         {
             !!isAdmin ?
             <Link to="/profile" className={(pathname === "/profile") ? "header__element active" : "header__element"}>

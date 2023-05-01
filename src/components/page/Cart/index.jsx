@@ -7,6 +7,8 @@ import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } 
 import axios from 'axios'
 import { parseJwt } from '../../../App'
 import { toast, ToastContainer } from "react-toastify";
+import { NoData } from '../../NoData'
+import { Loading } from '../../Loading'
 
 
 export default function Cart({isAdmin}) {
@@ -46,10 +48,10 @@ export default function Cart({isAdmin}) {
                         cart.map((product) =>
                           <Product product={product} />
                         )
-                      : <>no data</>
+                      : <NoData />
                     }
                 </div>
-                : <>loading</>
+                : <Loading/>
               }
             </div>
             {

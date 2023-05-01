@@ -4,6 +4,8 @@ import Header from '../../Header'
 import Product from '../../Product';
 import Button from '../../Button';
 import image from '../../../assets/marketology.png'
+import { NoData } from '../../NoData';
+import { Loading } from '../../Loading';
 
 export default function Main({isAdmin}) {
   const { data, isFetching } = useGetProductsQuery()
@@ -12,7 +14,7 @@ export default function Main({isAdmin}) {
     return (
     <div className="products__main">
       <Header isAdmin={isAdmin} />
-      <>loading</>
+      <Loading/>
     </div>)
   }
 
@@ -37,7 +39,7 @@ export default function Main({isAdmin}) {
                 <div className='product__main'>
                     {
                       !data?.rows.length ? 
-                        <>no data</>
+                        <NoData/>
                       :
                       data?.rows.map((product) => 
                         <Product product={product} />
